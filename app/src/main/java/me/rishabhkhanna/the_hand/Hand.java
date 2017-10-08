@@ -30,17 +30,15 @@ public class Hand extends AppCompatActivity {
         Log.d(TAG, "onCreate: HAND ACTIVITY");
         etText = (EditText) findViewById(R.id.etText);
         btn = (Button) findViewById(R.id.btn);
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
 
         try {
-            socket = IO.socket("http://192.168.43.164:9999");
+            socket = IO.socket("http://192.168.43.34:9999");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
         socket.connect();
         Log.d(TAG, "onCreate: " + socket.connected());
-        startActivityForResult(intent,REQ_CODE);
+
         Log.d(TAG, "onCreate: hand activity called");
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +68,10 @@ public class Hand extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        startActivityForResult(intent,REQ_CODE);
     }
+
+
 }
